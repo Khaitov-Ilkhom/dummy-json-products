@@ -29,16 +29,14 @@ const Navbar = () => {
               <Button variant="default" size="icon" onClick={() => navigate("/liked-products")}
                       className={`relative overflow-hidden border border-gray-500 ${isDarkMode ? "bg-black" : "border-gray-500"}`}>
                 <Heart className={`w-5 h-5 ${count > 0 ? "text-red-500 fill-red-500" : ""}`}/>
-                <Badge
-                    className={`absolute w-5.5 h-5.5 -top-2 -right-2 z-20 bg-transparent font-extrabold text-white rounded-full ${count > 0 ? "bg-red-500" : "opacity-0"}`}>{count}</Badge>
+                <Badge className={`absolute w-5.5 h-5.5 -top-2 -right-2 z-20 bg-transparent font-extrabold text-white rounded-full ${count > 0 ? "bg-red-500" : "opacity-0"}`}>{count}</Badge>
               </Button>
             </div>
             <div>
               <Button variant="default" size="icon" onClick={() => navigate("cart-products")}
                       className={`relative overflow-hidden border border-gray-500 ${isDarkMode ? "bg-black" : "border-gray-500"}`}>
                 <ShoppingCart className="w-5 h-5"/>
-                <Badge
-                    className={`absolute w-5.5 h-5.5 -top-2 -right-2 z-20 bg-transparent font-extrabold text-white rounded-full ${count > 0 ? "bg-red-500" : "opacity-0"}`}>{count}</Badge>
+                <Badge className={`absolute w-5.5 h-5.5 -top-2 -right-2 z-20 bg-transparent font-extrabold text-white rounded-full ${count > 0 ? "bg-red-500" : "opacity-0"}`}>{count}</Badge>
               </Button>
             </div>
             <div className="-mb-1">
