@@ -28,6 +28,7 @@ export interface Product {
   meta:                 Meta;
   thumbnail:            string;
   images:               string[];
+  quantity?:                 number;
 }
 
 export interface Dimensions {

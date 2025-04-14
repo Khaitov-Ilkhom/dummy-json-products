@@ -10,12 +10,17 @@ import {cn} from "@/lib/utils.ts";
 import RenderRating from "@/components/shared/render-rating/renderRating.tsx";
 import {Heart} from "lucide-react";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
+import {toast} from "sonner";
+import {useLikeStore} from "@/store/likeStore.ts";
+import {useNavigate} from "react-router-dom";
 
 const Products = ({product}: { product: Product }) => {
+  const navigate = useNavigate();
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [_, setCount] = useState(0)
-  const [like, setLike] = useState(false)
+  const { toggleLike, isLiked } = useLikeStore();
+  const liked = isLiked(product.id);
 
   useEffect(() => {
     if (!api) return
@@ -26,16 +31,26 @@ const Products = ({product}: { product: Product }) => {
     api.on("select", () => setCurrent(api.selectedScrollSnap()))
   }, [api])
 
+  const likedProduct = (p: Product) => {
+    toggleLike(p)
+    if (liked) {
+      toast.warning(`${product.title} remove to like`)
+    } else {
+      toast.success(`${product.title} add to like`)
+    }
+  }
+
   return (
       <Card className="border border-gray-300 hover:shadow-lg duration-500 py-0 overflow-hidden gap-2 relative group">
         <div className="absolute top-2 right-4 w-[30px] z-5">
-          <button className="cursor-pointer p-2 bg-white/40 rounded-full" onClick={() => setLike((s) => !s)}>{like ? <Heart className="text-red-500 fill-red-500"/> : <Heart className="text-gray-500"/>}</button>
+          <button className="cursor-pointer p-2 bg-white/40 rounded-full" onClick={() => likedProduct(product)}>{
+            liked? <Heart className="text-red-500 fill-red-500"/> : <Heart className="text-gray-500"/>}</button>
         </div>
         <div className="w-full flex flex-col items-center">
           <Carousel plugins={[Autoplay({delay: 2500})]} setApi={setApi} className="w-full">
             <CarouselContent>
               {product.images.map((image, index) => (
-                  <CarouselItem key={index} className="bg-gray-200 p-4">
+                  <CarouselItem onClick={() => navigate(`product-detail/${product.id}`)} key={index} className="bg-gray-200 p-4">
                     {
                       image ? <img className="w-full h-[200px] md:h-[250px] object-contain group-hover:scale-105 transition duration-600"
                                    src={image} alt={product.title}/> : <Skeleton className="w-full h-[200px] md:h-[250px]"/>
