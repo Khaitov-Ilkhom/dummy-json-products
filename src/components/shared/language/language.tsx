@@ -79,7 +79,7 @@ const Language = () => {
                 )}
             />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="space-y-1">
+          <DropdownMenuContent className="">
             {languageList.map((item) => (
                 <DropdownMenuItem
                     key={item.value}
