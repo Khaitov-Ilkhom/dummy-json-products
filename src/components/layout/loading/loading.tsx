@@ -1,4 +1,5 @@
 import { Atom } from "react-loading-indicators";
+import {JSX, Suspense} from "react";
 
 const Loading = () => {
   return (
@@ -8,3 +9,13 @@ const Loading = () => {
   )
 }
 export default Loading
+
+const SuspenseElement = ({children}: { children: JSX.Element }) => {
+  return (
+      <Suspense fallback={<Loading/>}>
+        {children}
+      </Suspense>
+  )
+}
+
+export {Loading, SuspenseElement}
