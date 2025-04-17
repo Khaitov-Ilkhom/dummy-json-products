@@ -46,6 +46,8 @@ const ProductDetails = ({product}: { product: Product }) => {
 
     if (totalQuantity < data.minimumOrderQuantity) {
       toast.error(`Kamida ${data.minimumOrderQuantity} dona buyurtma berishingiz kerak`);
+    } else if (totalQuantity > data.stock) {
+      toast.error(`${data.stock} dan ortiq buyurtma bera olmaysiz`)
     } else {
       addToCart({...data, quantity: quantityToAdd});
       toast.success(`${data.title} savatchaga qo‘shildi`);
@@ -56,8 +58,8 @@ const ProductDetails = ({product}: { product: Product }) => {
   return (
       <div>
         {
-          <div className="max-w-6xl mx-auto px-2 py-8">
-            <div className="relative flex flex-col lg:flex-row items-start justify-center lg:space-x-10 bg-white py-8">
+          <div className="max-w-[1440px] w-full mx-auto p-8">
+            <div className="relative flex flex-col lg:flex-row items-start justify-center lg:space-x-10 bg-white p-8">
               <div className="flex-1 lg:order-1 text-center lg:text-left pt-6">
                 <div className="mb-4">
                   <h1 className="text-4xl font-bold mb-2">{product.title}</h1>
@@ -84,10 +86,10 @@ const ProductDetails = ({product}: { product: Product }) => {
                   <Carousel plugins={[Autoplay({delay: 2500})]} setApi={setApi} className="w-full">
                     <CarouselContent>
                       {product?.images.map((image: string, index: number) => (
-                          <CarouselItem key={index} className="bg-gray-200 p-4">
+                          <CarouselItem key={index} className="bg-gray-200">
                             {
                               image ? <img
-                                      className="w-full h-[200px] md:h-[350px] object-contain group-hover:scale-105 transition duration-600"
+                                      className="w-full h-[200px] md:h-[350px] px-4 object-contain group-hover:scale-105 transition duration-600"
                                       src={image} alt={product.title}/> :
                                   <Skeleton className="w-full h-[200px] md:h-[250px]"/>
                             }
@@ -112,9 +114,9 @@ const ProductDetails = ({product}: { product: Product }) => {
               <div className="flex-1 lg:order-3 text-center lg:text-left pt-6">
                 <div className="">
                   <div className="flex mb-4 gap-2 justify-between items-center">
-                    <p className="text-3xl font-semibold text-green-400">{product.price - (product.price * product.discountPercentage) / 100}</p>
-                    <p className="text-red-400 line-through text-xl">{product.price}</p>
-                    <p className="rounded-2xl px-3 py-1 bg-amber-300">-{product.discountPercentage.toFixed(1)}%</p>
+                    <p className="text-3xl font-semibold text-green-400">{(product.price - (product.price * product.discountPercentage) / 100).toFixed(2)} USD</p>
+                    <p className="text-red-400 text-xl"><span className="line-through">{product.price}</span> USD</p>
+                    <p className="rounded-2xl px-3 py-1 bg-amber-300">-{product.discountPercentage.toFixed(2)}%</p>
                   </div>
 
                   <div className="space-y-1.5">
@@ -143,7 +145,7 @@ const ProductDetails = ({product}: { product: Product }) => {
                         </Button>
                         <span className="w-5 text-center">{quantity}</span>
                         <Button onClick={() => handleIncrement()}
-                                disabled={!!items.find(p => p.id === product.id && p.quantity === product.stock)}
+                                disabled={!!items.find(p => p.id === product.id && (p.quantity !== undefined ? p.quantity + quantity : 0) >= product.stock || quantity >= product.stock)}
                                 className="w-6 h-6 rounded-md transition-transform active:scale-90 border p-2 border-gray-400">
                           <Plus size={24}/>
                         </Button>
@@ -161,7 +163,6 @@ const ProductDetails = ({product}: { product: Product }) => {
                 </div>
               </div>
             </div>
-
           </div>
         }
       </div>

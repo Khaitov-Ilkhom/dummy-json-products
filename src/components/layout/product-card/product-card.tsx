@@ -50,9 +50,9 @@ const Products = ({product}: { product: Product }) => {
           <Carousel plugins={[Autoplay({delay: 2500})]} setApi={setApi} className="w-full">
             <CarouselContent>
               {product.images.map((image, index) => (
-                  <CarouselItem onClick={() => navigate(`product-detail/${product.id}`)} key={index} className="bg-gray-200 p-4">
+                  <CarouselItem onClick={() => navigate(`product-detail/${product.id}`)} key={index} className="bg-gray-200 cursor-pointer">
                     {
-                      image ? <img className="w-full h-[200px] md:h-[250px] object-contain group-hover:scale-105 transition duration-600"
+                      image ? <img className="w-full h-[200px] md:h-[250px] object-contain group-hover:scale-105 transition duration-600 px-4"
                                    src={image} alt={product.title}/> : <Skeleton className="w-full h-[200px] md:h-[250px]"/>
                     }
                   </CarouselItem>

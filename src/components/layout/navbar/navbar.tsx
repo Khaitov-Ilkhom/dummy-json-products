@@ -42,7 +42,7 @@ const Navbar = () => {
             <div className="hidden md:flex">
               <Button variant="default" size="icon" onClick={() => navigate("/liked-products")}
                       className={`relative border border-gray-500 ${isDarkMode ? "bg-black" : "border-gray-500"}`}>
-                <Heart className={`w-5 h-5 ${likedItems.length > 0 ? "text-red-500 fill-red-500" : ""}`}/>
+                <Heart className="w-5 h-5"/>
                 <Badge className={`absolute w-5.5 h-5.5 -top-2 -right-2 z-20 bg-transparent font-extrabold text-white rounded-full ${likedItems.length > 0 ? "bg-red-500" : "opacity-0"}`}>{likedItems.length}</Badge>
               </Button>
             </div>
