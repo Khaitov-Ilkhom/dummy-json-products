@@ -25,12 +25,12 @@ export const useCartStore = create(
 
               incrementQuantity: (product: Product) => {
                 // @ts-ignore
-                set({carts: get().carts.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + product.quantity } : i),});
+                set({carts: get().carts.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i),});
               },
 
               decrementQuantity: (product: Product) => {
                 // @ts-ignore
-                set({carts: get().carts.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + product.quantity } : i),});
+                set({carts: get().carts.map((i) => i.id === product.id ? { ...i, quantity: i.quantity - 1 } : i),});
               },
 
               removeFromCart: (id: number) => {
