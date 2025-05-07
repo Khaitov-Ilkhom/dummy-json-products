@@ -1,119 +1,115 @@
 import Navbar from "@/components/layout/navbar/navbar.tsx";
 import {useCartStore} from "@/store/cartStore.ts";
-import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components/ui/carousel.tsx";
-import Autoplay from "embla-carousel-autoplay";
-import {Skeleton} from "@/components/ui/skeleton.tsx";
-import {cn} from "@/lib/utils.ts";
-import {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
-import {Minus, Plus} from "lucide-react";
-import {Product} from "@/types";
+import {Minus, Plus, Trash2} from "lucide-react";
+import {useState} from "react";
 
 const CartProducts = () => {
-  const [api, setApi] = useState<CarouselApi>()
-  const [current, setCurrent] = useState(0)
-  const [_, setCount] = useState(0)
-
   const {incrementQuantity, decrementQuantity, removeFromCart, clearCart} = useCartStore();
   const items = useCartStore((state) => state.carts);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
-  useEffect(() => {
-    if (!api) return
+  const totalPrice = items.reduce((acc, item) => {
+    const discounted = item.price - (item.price * item.discountPercentage) / 100;
+    // @ts-ignore
+    return acc + discounted * item.quantity;
+  }, 0).toFixed(2);
 
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap())
+  const isSelected = (id: number) => selectedIds.includes(id);
+  const toggleSelect = (id: number) =>
+      setSelectedIds(prev => isSelected(id) ? prev.filter(i => i !== id) : [...prev, id]);
 
-    api.on("select", () => setCurrent(api.selectedScrollSnap()))
-  }, [api])
-
-  const handleIncrement = (p: Product) => {
-    incrementQuantity(p)
-  };
-
-  const handleDecrement = (p: Product) => {
-   decrementQuantity(p)
+  const removeSelected = () => {
+    selectedIds.forEach(id => removeFromCart(id));
+    setSelectedIds([]);
   };
 
   return (
-      <div className="max-w-[1440px] mx-auto w-full">
+      <div className="max-w-[1440px] mx-auto">
         <Navbar/>
-        <div className="mt-[60px] px-6">
-          <div className="w-full flex justify-between items-center">
-            <h3 className="text-4xl font-semibold pt-2">Your cart, {items.length} items</h3>
-            <div>
-              <Button onClick={clearCart}>Clear cart</Button>
-            </div>
+        <div className="mt-[70px] px-4 md:px-10">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-3xl font-semibold">Savat ({items.length} ta mahsulot)</h2>
+            {items.length > 0 && (
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={removeSelected} disabled={selectedIds.length === 0}>
+                    Tanlanganlarni o‘chirish
+                  </Button>
+                  <Button variant="destructive" onClick={clearCart}>Savatni tozalash</Button>
+                </div>
+            )}
           </div>
 
-          <div>
-            <div>
-              <input type="checkbox" placeholder="Check all"/>
-              <p>Yetkazib berish
-                sanasi {new Date().getDate() + 1} {new Date().toLocaleString('default', {month: 'long'})}</p>
-            </div>
-            <div>
-              {
-                items.map(item => (
-                    <div>
-                      <div>
-                        <input type="checkbox"/>
-                      </div>
-                      <div className="w-full max-w-[160px] flex flex-col items-center">
-                        <Carousel plugins={[Autoplay({delay: 2500})]} setApi={setApi} className="w-full">
-                          <CarouselContent>
-                            {item?.images.map((image: string, index: number) => (
-                                <CarouselItem key={index} className="bg-gray-200 flex justify-center">
-                                  {
-                                    image ? <img
-                                            className="w-full max-w-[150px] object-contain group-hover:scale-105 transition duration-600"
-                                            src={image} alt={item.title}/> :
-                                        <Skeleton className="w-full h-[200px] md:h-[250px]"/>
-                                  }
-                                </CarouselItem>
-                            ))}
-                          </CarouselContent>
-                        </Carousel>
+          {items.length === 0 ? (
+              <div className="text-center text-gray-500 mt-20">Savat bo‘sh</div>
+          ) : (
+              <div className="space-y-6">
+                {items.map(item => {
+                  const discountedPrice = (item.price - (item.price * item.discountPercentage) / 100).toFixed(2);
+                  const outOfStock = item.stock === 0;
 
-                        <div className="flex gap-1 mt-2">
-                          {Array.from({length: item.images.length}).map((_, index) => (
-                              <button
-                                  key={index}
-                                  className={cn("h-2 w-2 rounded-full transition-colors", current === index ? "bg-primary" : "bg-muted")}
-                                  onClick={() => api?.scrollTo(index)}
-                                  aria-label={`Go to slide ${index + 1}`}
-                              />
-                          ))}
+                  return (
+                      <div key={item.id}
+                           className="border rounded-xl p-4 flex flex-col md:flex-row gap-4 bg-white shadow-sm hover:shadow-md transition">
+                        <input type="checkbox"
+                               checked={isSelected(item.id)}
+                               onChange={() => toggleSelect(item.id)}
+                               className="self-start md:self-center"/>
+
+                        <img src={item.images[0]}
+                             alt={item.title}
+                             className="w-[120px] h-[120px] object-contain rounded-md bg-gray-100"/>
+
+                        <div className="flex flex-col flex-1 justify-between">
+                          <div>
+                            <h3 className="text-lg font-semibold">{item.title}</h3>
+                            <div className="mt-2 text-sm text-gray-500">{item.brand}</div>
+
+                            {outOfStock && (
+                                <div className="text-red-600 text-sm font-semibold mt-1">Out of Stock</div>
+                            )}
+                          </div>
+
+                          <div className="flex justify-between items-end mt-4">
+                            <div>
+                              <p className="text-lg font-bold text-green-600">{discountedPrice} USD</p>
+                              <p className="text-sm line-through text-gray-400">{item.price} USD</p>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                              <Button onClick={() => decrementQuantity(item)}
+                                      className="w-8 h-8 p-0 border"
+                                      disabled={item.quantity <= 1}>
+                                <Minus size={16}/>
+                              </Button>
+                              <span>{item.quantity}</span>
+                              <Button onClick={() => incrementQuantity(item)}
+                                      className="w-8 h-8 p-0 border"
+                                      disabled={item.quantity >= item.stock}>
+                                <Plus size={16}/>
+                              </Button>
+                              <Button onClick={() => removeFromCart(item.id)} variant="ghost" size="icon">
+                                <Trash2 className="text-gray-500 hover:text-red-500" size={18}/>
+                              </Button>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div>{item.quantity}</div>
-                      <div className="flex items-center gap-3 py-[5px]">
-                        <Button onClick={() => handleDecrement(item)}
-                                className="w-6 h-6 rounded-md transition-transform active:scale-90 border p-2 border-gray-400">
-                          <Minus size={24}/>
-                        </Button>
-                        <span className="w-5 text-center">{item.quantity}</span>
-                        <Button onClick={() => handleIncrement(item)}
-                                disabled={!!items.find(p => p.id === item.id && p.quantity === item.stock)}
-                                className="w-6 h-6 rounded-md transition-transform active:scale-90 border p-2 border-gray-400">
-                          <Plus size={24}/>
-                        </Button>
-                      </div>
-                      <div>
-                        <div>
-                          <Button onClick={() => removeFromCart(item.id)}>Remove</Button>
-                        </div>
-                        <div>
-                          <p>{(item.price - (item.price * item.discountPercentage) / 100).toFixed(2)} USD</p>
-                          <p>{item.price} USD</p>
-                        </div>
-                      </div>
-                    </div>
-                ))
-              }
-            </div>
-          </div>
+                  );
+                })}
+              </div>
+          )}
+
+          {items.length > 0 && (
+              <div className="mt-10 p-4 border-t flex justify-between items-center bg-gray-50">
+                <h4 className="text-xl font-semibold">Umumiy narx: {totalPrice} USD</h4>
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
+                  Buyurtmani rasmiylashtirish
+                </Button>
+              </div>
+          )}
         </div>
       </div>
   )
 }
-export default CartProducts
+export default CartProducts;
