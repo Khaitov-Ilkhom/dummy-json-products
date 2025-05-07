@@ -3,6 +3,7 @@ import {useCartStore} from "@/store/cartStore.ts";
 import {Button} from "@/components/ui/button.tsx";
 import {Minus, Plus, Trash2} from "lucide-react";
 import {useState} from "react";
+import {Product} from "@/types";
 
 const CartProducts = () => {
   const {incrementQuantity, decrementQuantity, removeFromCart, clearCart} = useCartStore();
@@ -44,7 +45,7 @@ const CartProducts = () => {
               <div className="text-center text-gray-500 mt-20">Savat bo‘sh</div>
           ) : (
               <div className="space-y-6">
-                {items.map(item => {
+                {items.map((item : Product) => {
                   const discountedPrice = (item.price - (item.price * item.discountPercentage) / 100).toFixed(2);
                   const outOfStock = item.stock === 0;
 
@@ -79,13 +80,13 @@ const CartProducts = () => {
                             <div className="flex items-center gap-3">
                               <Button onClick={() => decrementQuantity(item)}
                                       className="w-8 h-8 p-0 border"
-                                      disabled={item.quantity <= 1}>
+                                      disabled={item.quantity === undefined || item.quantity <= 1}>
                                 <Minus size={16}/>
                               </Button>
                               <span>{item.quantity}</span>
                               <Button onClick={() => incrementQuantity(item)}
                                       className="w-8 h-8 p-0 border"
-                                      disabled={item.quantity >= item.stock}>
+                                      disabled={item.quantity === undefined || item.quantity >= item.stock}>
                                 <Plus size={16}/>
                               </Button>
                               <Button onClick={() => removeFromCart(item.id)} variant="ghost" size="icon">
