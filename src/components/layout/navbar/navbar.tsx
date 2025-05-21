@@ -9,7 +9,7 @@ import ThemeToggle from "@/components/shared/themeToggle/themeToggle.tsx";
 import {useThemeStore} from "@/store/themeStore.ts";
 import Language from "@/components/shared/language/language.tsx";
 import {Input} from "@/components/ui/input.tsx";
-import {Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle} from "@/components/ui/sheet.tsx";
+import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle} from "@/components/ui/sheet.tsx";
 import {useLikeStore} from "@/store/likeStore.ts";
 import {useCartStore} from "@/store/cartStore.ts";
 
@@ -26,8 +26,8 @@ const Navbar = () => {
 
   return (
       <nav
-          className={`fixed top-0 max-w-[1440px] w-full mx-auto ${isDarkMode ? "bg-[#0E1014]/70 text-white" : "bg-background/95 supports-[backdrop-filter]:bg-background/60"} backdrop-blur shadow-xl z-10`}>
-        <div className="w-full h-[60px] flex justify-between items-center gap-2 md:gap-4 px-4">
+          className={`fixed top-0 w-full mx-auto ${isDarkMode ? "bg-[#0E1014]/70 text-white" : "bg-background/95 supports-[backdrop-filter]:bg-background/60"} backdrop-blur shadow-xl z-10`}>
+        <div className="max-w-[1440px] mx-auto w-full h-[60px] flex justify-between items-center gap-2 md:gap-4 px-4">
           <div className="md:flex gap-6 md:gap-10">
             <div className="max-w-[200px] hidden md:flex">
               <Link to="/"><img className="w-full" src={isDarkMode ? logoDark : logoLight} alt="Logo"/></Link>
@@ -103,9 +103,6 @@ const Navbar = () => {
                 </div>
               </SheetDescription>
             </SheetHeader>
-            <SheetFooter>
-              {/*<Footer/>*/}
-            </SheetFooter>
           </SheetContent>
         </Sheet>
       </nav>
