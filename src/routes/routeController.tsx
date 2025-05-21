@@ -1,6 +1,6 @@
 import {useRoutes} from "react-router-dom";
 import {lazy} from "react";
-import {SuspenseElement as Suspense} from "@/components/layout/loading/loading.tsx";
+import {SuspenseElement as Suspense} from "@/components/shared/loading/loading.tsx";
 
 const Home = lazy(() => import("../routes/home/home.tsx"))
 const LikedProducts = lazy(() => import("../routes/liked-products/likedProducts.tsx"))

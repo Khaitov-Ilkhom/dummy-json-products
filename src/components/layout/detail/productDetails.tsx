@@ -19,9 +19,9 @@ const ProductDetails = ({product}: { product: Product }) => {
   const {addToCart} = useCartStore();
   const items = useCartStore((state) => state.carts);
 
-  useEffect(() => {
-    if (!api) return
+  useEffect(() => { 
 
+    if (!api) return
     setCount(api.scrollSnapList().length)
     setCurrent(api.selectedScrollSnap())
 
