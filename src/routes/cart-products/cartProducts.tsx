@@ -29,12 +29,10 @@ const CartProducts = () => {
       <div className="w-full">
         <Navbar/>
 
-        <div className="max-w-[1440px] mx-auto w-full">
-          <div className="mt-[70px]">
-            <Breadcrumbs/>
-          </div>
+        <div className="max-w-[1440px] mx-auto w-full mt-[70px]">
+          <Breadcrumbs/>
 
-          <div className=" px-4 md:px-10">
+          <div className="px-4 md:px-10 mt-2">
             <div className="flex justify-between md:items-center mb-4 flex-col md:flex-row gap-2">
               <h2 className="text-3xl font-semibold">Savat ({items.length} ta mahsulot)</h2>
               {items.length > 0 && (
@@ -51,12 +49,13 @@ const CartProducts = () => {
                 <div className="text-center text-gray-500 mt-20">Savat bo‘sh</div>
             ) : (
                 <div className="space-y-6">
-                  {items.map((item : Product) => {
+                  {items.map((item: Product) => {
                     const discountedPrice = (item.price - (item.price * item.discountPercentage) / 100).toFixed(2);
                     const outOfStock = item.stock === 0;
 
                     return (
-                        <div key={item.id} className="border rounded-xl p-4 flex flex-col md:flex-row gap-4 bg-white shadow-sm hover:shadow-md transition">
+                        <div key={item.id}
+                             className="border rounded-xl p-4 flex flex-col md:flex-row gap-4 bg-white shadow-sm hover:shadow-md transition">
                           <input type="checkbox"
                                  checked={isSelected(item.id)}
                                  onChange={() => toggleSelect(item.id)}
@@ -122,7 +121,8 @@ const CartProducts = () => {
             )}
 
             {items.length > 0 && (
-                <div className="mt-10 md:p-4 py-4 border-t flex flex-col md:flex-row justify-between md:items-center gap-2 bg-gray-50">
+                <div
+                    className="mt-10 md:p-4 py-4 border-t flex flex-col md:flex-row justify-between md:items-center gap-2 bg-gray-50">
                   <h4 className="text-xl font-semibold">Umumiy narx: {totalPrice} USD</h4>
                   <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
                     Buyurtmani rasmiylashtirish

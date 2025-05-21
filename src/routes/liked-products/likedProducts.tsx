@@ -10,12 +10,11 @@ const LikedProducts = () => {
       <div className="w-full">
         <Navbar/>
 
-        <div className="max-w-[1440px] mx-auto w-full">
-          <div className="mt-[70px]">
-            <Breadcrumbs/>
-          </div>
+        <div className="max-w-[1440px] mx-auto w-full mt-[70px]">
+          <Breadcrumbs/>
 
-          <div  className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 p-4 md:px-10">
+          <div
+              className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 p-4 md:px-10">
             {
               likedItems.map((product) => (
                   <Products key={product.id} product={product}/>

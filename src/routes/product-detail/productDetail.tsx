@@ -13,13 +13,11 @@ const ProductDetail = () => {
       <div className="w-full">
         <Navbar/>
 
-        <div className="max-w-[1440px] mx-auto w-full">
-          <div className="mt-[70px]">
-            <Breadcrumbs/>
-          </div>
+        <div className="max-w-[1440px] mx-auto w-full mt-[70px]">
+          <Breadcrumbs/>
 
           <div className="w-full">
-            {productLoading ? <Loading/> : <ProductDetails product={product} />}
+            {productLoading ? <Loading/> : <ProductDetails product={product}/>}
           </div>
         </div>
       </div>
