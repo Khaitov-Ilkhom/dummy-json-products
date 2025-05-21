@@ -9,7 +9,7 @@ import Breadcrumbs from "@/components/shared/breadcrumb/breadcrumb.tsx";
 import HeroCarousel from "@/components/layout/hero-carousel/hero-carousel.tsx";
 
 const Home = () => {
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(15);
 
   const {products, productLoading}: { products: Product[], productLoading: boolean } = useGetAllProduct()
 
@@ -27,8 +27,7 @@ const Home = () => {
               <h2 className="text-4xl font-semibold">All Products</h2>
             </div>
 
-            <div
-                className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 p-4 md:px-10">
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 p-4 md:px-10">
               {
                 productLoading ? Array.from({length: 10}).map((_, i) => (
                     <div key={i} className="flex flex-col space-y-3">
@@ -45,7 +44,7 @@ const Home = () => {
               }
             </div>
 
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex justify-center items-center mb-5">
               <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)}
                       className="px-10 py-2 font-semibold">Show more 10</Button>
             </div>
