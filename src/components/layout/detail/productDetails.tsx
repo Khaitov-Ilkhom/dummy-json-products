@@ -30,6 +30,8 @@ const ProductDetails = ({product}: { product: Product }) => {
     api.on("select", () => setCurrent(api.selectedScrollSnap()))
   }, [api])
 
+  const autoplayPlugin = new (Autoplay as any)({ delay: 2500 });
+
   const handleIncrement = () => {
     setQuantity(quantity + 1);
   };
@@ -57,6 +59,7 @@ const ProductDetails = ({product}: { product: Product }) => {
     }
   };
 
+  // @ts-ignore
   return (
       <div>
         {
@@ -85,7 +88,7 @@ const ProductDetails = ({product}: { product: Product }) => {
 
               <div className="relative w-full lg:w-1/3 mb-6 lg:mb-0 lg:order-2">
                 <div className="w-full flex flex-col items-center">
-                  <Carousel plugins={[Autoplay({delay: 2500})]} setApi={setApi} className="w-full">
+                  <Carousel plugins={[autoplayPlugin]} setApi={setApi} className="w-full">
                     <CarouselContent>
                       {product?.images.map((image: string, index: number) => (
                           <CarouselItem key={index} className="bg-gray-200">

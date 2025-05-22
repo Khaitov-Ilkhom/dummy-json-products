@@ -34,9 +34,11 @@ const HeroCarousel = () => {
     api.on("select", () => setCurrent(api.selectedScrollSnap()))
   }, [api])
 
+  const autoplayPlugin = new (Autoplay as any)({ delay: 2500 });
+
   return (
       <div className="m-4">
-        <Carousel setApi={setApi} plugins={[Autoplay({delay: 2500})]} className="w-full rounded-xl overflow-hidden relative">
+        <Carousel setApi={setApi} plugins={[autoplayPlugin]} className="w-full rounded-xl overflow-hidden relative">
           <CarouselContent>
             {
               images.map((img, index) => (

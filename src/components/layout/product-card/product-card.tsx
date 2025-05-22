@@ -33,6 +33,8 @@ const Products = ({product}: { product: Product }) => {
     api.on("select", () => setCurrent(api.selectedScrollSnap()))
   }, [api])
 
+  const autoplayPlugin = new (Autoplay as any)({ delay: 2500 });
+
   const likedProduct = (p: Product) => {
     toggleLike(p)
     if (liked) {
@@ -50,7 +52,7 @@ const Products = ({product}: { product: Product }) => {
             liked ? <Heart className="text-red-500 fill-red-500"/> : <Heart className="text-gray-500"/>}</button>
         </div>
         <div className="w-full flex flex-col items-center">
-          <Carousel plugins={[Autoplay({delay: 2500})]} setApi={setApi} className="w-full">
+          <Carousel plugins={[autoplayPlugin]} setApi={setApi} className="w-full">
             <CarouselContent>
               {product.images.map((image, index) => (
                   <CarouselItem onClick={() => navigate(`/product-detail/${product.id}`)} key={index}
