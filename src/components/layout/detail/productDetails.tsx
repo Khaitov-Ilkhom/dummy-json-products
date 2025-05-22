@@ -9,8 +9,10 @@ import {cn} from "@/lib/utils.ts";
 import RenderRating from "@/components/shared/render-rating/renderRating.tsx";
 import {useCartStore} from "@/store/cartStore.ts";
 import {Button} from "@/components/ui/button.tsx";
+import {useTranslation} from "react-i18next";
 
 const ProductDetails = ({product}: { product: Product }) => {
+  const {t} = useTranslation();
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [_, setCount] = useState(0)
@@ -36,7 +38,7 @@ const ProductDetails = ({product}: { product: Product }) => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     } else {
-      toast.error("Quantity cannot be less than 1");
+      toast.error(`${t("Quantity cannot be less than 1")}`);
     }
   };
 
@@ -45,12 +47,12 @@ const ProductDetails = ({product}: { product: Product }) => {
     const totalQuantity = (existingItem?.quantity || 0) + quantityToAdd;
 
     if (totalQuantity < data.minimumOrderQuantity) {
-      toast.error(`Kamida ${data.minimumOrderQuantity} dona buyurtma berishingiz kerak`);
+      toast.error(`${t("At leas")}t ${data.minimumOrderQuantity} ${t("you need to order a piece")}`);
     } else if (totalQuantity > data.stock) {
-      toast.error(`${data.stock} dan ortiq buyurtma bera olmaysiz`)
+      toast.error(`${data.stock} ${t("you cannot order more than")}`)
     } else {
       addToCart({...data, quantity: quantityToAdd});
-      toast.success(`${data.title} savatchaga qo‘shildi`);
+      toast.success(`${data.title} ${t("added to cart")}`);
       setQuantity(1);
     }
   };
@@ -73,7 +75,7 @@ const ProductDetails = ({product}: { product: Product }) => {
                 </div>
 
                 <div>
-                  <p>Status: {product.availabilityStatus}</p>
+                  <p>{t("Status")}: {product.availabilityStatus}</p>
                 </div>
 
                 <div className="py-4 mb-2">
@@ -129,11 +131,11 @@ const ProductDetails = ({product}: { product: Product }) => {
                         <p className="flex gap-2"><Package/> <span>{product.dimensions.depth} </span></p>
                       </div>
                     </div>
-                    <p><span className="font-semibold">Stock:</span> {product.stock}</p>
-                    <p><span className="font-semibold">Minimum order quantity:</span> {product.minimumOrderQuantity}</p>
-                    <p><span className="font-semibold">Return policy:</span> {product.returnPolicy}</p>
-                    <p><span className="font-semibold">Shipping information:</span> {product.shippingInformation}</p>
-                    <p><span className="font-semibold">Warranty information:</span> {product.warrantyInformation}</p>
+                    <p><span className="font-semibold">{t("Stock")}:</span> {product.stock}</p>
+                    <p><span className="font-semibold">{t("Minimum order quantity")}:</span> {product.minimumOrderQuantity}</p>
+                    <p><span className="font-semibold">{t("Return policy")}:</span> {product.returnPolicy}</p>
+                    <p><span className="font-semibold">{t("Shipping information")}:</span> {product.shippingInformation}</p>
+                    <p><span className="font-semibold">{t("Warranty information")}:</span> {product.warrantyInformation}</p>
                   </div>
 
                   <div className="w-full flex items-center justify-start my-6 select-none">
@@ -153,11 +155,8 @@ const ProductDetails = ({product}: { product: Product }) => {
                     </div>
 
                     <Button
-                        onClick={() => {
-                          handleAddToCart(product, quantity)
-                        }}
-                        className="rounded-lg text-md py-1 border">+
-                      Add to cart
+                        onClick={() => {handleAddToCart(product, quantity)}}
+                        className="rounded-lg text-md py-1 border">+ {t("Add to cart")}
                     </Button>
                   </div>
                 </div>

@@ -13,9 +13,11 @@ import {Skeleton} from "@/components/ui/skeleton.tsx";
 import {toast} from "sonner";
 import {useLikeStore} from "@/store/likeStore.ts";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const Products = ({product}: { product: Product }) => {
   const navigate = useNavigate();
+  const {t} = useTranslation();
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [_, setCount] = useState(0)
@@ -34,9 +36,9 @@ const Products = ({product}: { product: Product }) => {
   const likedProduct = (p: Product) => {
     toggleLike(p)
     if (liked) {
-      toast.warning(`${product.title} remove to like`)
+      toast.warning(`${product.title} ${t("remove to like")}`)
     } else {
-      toast.success(`${product.title} add to like`)
+      toast.success(`${product.title} ${t("add to like")}`)
     }
   }
 
@@ -88,7 +90,7 @@ const Products = ({product}: { product: Product }) => {
             <RenderRating rate={product.rating}/>
           </div>
           <p className="w-full flex flex-col md:flex-row justify-between"><span
-              className="hidden md:flex">Status: {product.availabilityStatus}</span> <span>Stock: {product.stock}</span>
+              className="hidden md:flex">{t("Status")}: {product.availabilityStatus}</span> <span>{t("Stock")}: {product.stock}</span>
           </p>
         </CardContent>
       </Card>
