@@ -7,6 +7,7 @@ import {Skeleton} from "@/components/ui/skeleton.tsx";
 import Navbar from "@/components/layout/navbar/navbar.tsx";
 import Breadcrumbs from "@/components/shared/breadcrumb/breadcrumb.tsx";
 import HeroCarousel from "@/components/layout/hero-carousel/hero-carousel.tsx";
+import Footer from "@/components/layout/footer/footer.tsx";
 
 const Home = () => {
   const [limit, setLimit] = useState(15);
@@ -14,7 +15,7 @@ const Home = () => {
   const {products, productLoading}: { products: Product[], productLoading: boolean } = useGetAllProduct()
 
   return (
-      <div className="w-full ">
+      <div className="w-full">
         <Navbar/>
 
         <div className="max-w-[1440px] mx-auto mt-[70px]">
@@ -45,11 +46,12 @@ const Home = () => {
             </div>
 
             <div className="w-full flex justify-center items-center mb-5">
-              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)}
-                      className="px-10 py-2 font-semibold">Show more 10</Button>
+              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)} className="px-10 py-2 font-semibold">Show more 10</Button>
             </div>
           </div>
         </div>
+
+        <Footer/>
       </div>
   )
 }

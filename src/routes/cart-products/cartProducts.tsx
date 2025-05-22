@@ -5,6 +5,7 @@ import {Minus, Plus, Trash2} from "lucide-react";
 import {useState} from "react";
 import {Product} from "@/types";
 import Breadcrumbs from "@/components/shared/breadcrumb/breadcrumb.tsx";
+import Footer from "@/components/layout/footer/footer.tsx";
 
 const CartProducts = () => {
   const {incrementQuantity, decrementQuantity, removeFromCart, clearCart} = useCartStore();
@@ -32,7 +33,7 @@ const CartProducts = () => {
         <div className="max-w-[1440px] mx-auto w-full mt-[70px]">
           <Breadcrumbs/>
 
-          <div className="px-4 md:px-10 mt-2">
+          <div className="px-4 md:px-10 mt-2 mb-8">
             <div className="flex justify-between md:items-center mb-4 flex-col md:flex-row gap-2">
               <h2 className="text-3xl font-semibold">Savat ({items.length} ta mahsulot)</h2>
               {items.length > 0 && (
@@ -40,7 +41,7 @@ const CartProducts = () => {
                     <Button variant="outline" onClick={removeSelected} disabled={selectedIds.length === 0}>
                       Tanlanganlarni o‘chirish
                     </Button>
-                    <Button variant="destructive" onClick={clearCart}>Savatni tozalash</Button>
+                    <Button variant="destructive" className="hover:bg-red-500/90" onClick={clearCart}>Savatni tozalash</Button>
                   </div>
               )}
             </div>
@@ -108,8 +109,8 @@ const CartProducts = () => {
                                         disabled={item.quantity === undefined || item.quantity >= item.stock}>
                                   <Plus size={16}/>
                                 </Button>
-                                <Button onClick={() => removeFromCart(item.id)} variant="ghost" size="icon">
-                                  <Trash2 className="text-gray-500 hover:text-red-500" size={18}/>
+                                <Button onClick={() => removeFromCart(item.id)} className="bg-red-500 hover:bg-red-500/80 w-8 h-8" variant="ghost" size="icon">
+                                  <Trash2 className="text-white" size={18}/>
                                 </Button>
                               </div>
                             </div>
@@ -131,6 +132,8 @@ const CartProducts = () => {
             )}
           </div>
         </div>
+
+        <Footer/>
       </div>
   )
 }

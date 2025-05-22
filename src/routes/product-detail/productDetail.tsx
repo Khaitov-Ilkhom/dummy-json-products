@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/navbar/navbar.tsx";
 import ProductDetails from "@/components/layout/detail/productDetails.tsx";
 import Loading from "@/components/shared/loading/loading.tsx";
 import Breadcrumbs from "@/components/shared/breadcrumb/breadcrumb.tsx";
+import Footer from "@/components/layout/footer/footer.tsx";
 
 const ProductDetail = () => {
   const {id} = useParams();
@@ -20,6 +21,8 @@ const ProductDetail = () => {
             {productLoading ? <Loading/> : <ProductDetails product={product}/>}
           </div>
         </div>
+
+        <Footer/>
       </div>
   )
 }
