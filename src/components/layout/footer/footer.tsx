@@ -41,7 +41,7 @@ const Footer = () => {
             <div className="lg:col-span-1">
               <h2 className="text-2xl font-bold mb-6">PRODUCT SHOP</h2>
               <p className="text-muted-foreground mb-6">
-                {t("We have clothes that suits your style and which you're proud to wear. From women to men.")}
+                {t("We have clothes that suits your style and which you're proud to wear From women to men")}.
               </p>
               <div className="flex space-x-4">
                 <Link to="#" className="h-10 w-10 flex items-center justify-center rounded-full bg-muted hover:bg-gray-300 duration-500">
@@ -169,7 +169,7 @@ const Footer = () => {
           </div>
 
           <div className="mt-10 pt-4 border-t flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-muted-foreground md:mb-0">Product Shop © 2000-{new Date().getFullYear()}, {t("All Rights Reserved")}</p>
+            <p className="text-sm text-muted-foreground md:mb-0 mb-3">Product Shop © 2000-{new Date().getFullYear()}, {t("All Rights Reserved")}</p>
             <div className="flex items-center space-x-4">
               <img src={visa} alt="Visa" className="h-10 hover:scale-110 transition-all duration-500" />
               <img src={mastercard} alt="Mastercard" className="h-10 hover:scale-110 transition-all duration-500" />
