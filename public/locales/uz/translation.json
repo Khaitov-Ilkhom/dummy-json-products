@@ -15,7 +15,7 @@
   "STAY UPTO DATE ABOUT OUR LATEST OFFERS": "YANGI TAKLIFLARIMIZDAN XABARDOR BO‘LIB TURING",
   "Enter your email address": "Email manzilingizni kiriting",
   "Subscribe to Newsletter": "Yangiliklarga obuna bo‘ling",
-  "We have clothes that suits your style and which you're proud to wear. From women to men.": "Bizda sizning uslubingizga mos va faxr bilan kiyadigan kiyimlar bor. Ayollardan erkaklargacha.",
+  "We have clothes that suits your style and which you're proud to wear From women to men": "Bizda sizning uslubingizga mos va faxr bilan kiyadigan kiyimlar bor. Ayollardan erkaklargacha.",
   "COMPANY": "KOMPANIYA",
   "About": "Biz haqimizda",
   "Features": "Xususiyatlar",
@@ -39,5 +39,14 @@
   "All Rights Reserved": "Barcha huquqlar himoyalangan",
   "remove to like": "yoqtirishdan olib tashlash",
   "add to like": "yoqtirishga qo‘shish",
-  "Status": "Holat"
+  "Status": "Holat",
+  "In cart": "Savatda",
+  "Delete selected": "Tanlanganlarni o‘chirish",
+  "Clear cart": "Savatni tozalash",
+  "Cart is empty": "Savat bo‘sh",
+  "Out of Stock": "Omborda yo‘q",
+  "Total price": "Umumiy narx",
+  "Order processing": "Buyurtma qayta ishlanmoqda",
+  "Search": "Qidiruv",
+  "Liked products is empty": "Yoqtirgan mahsulotlar topilmadi"
 }
