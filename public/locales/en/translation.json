@@ -15,7 +15,7 @@
   "STAY UPTO DATE ABOUT OUR LATEST OFFERS": "STAY UPTO DATE ABOUT OUR LATEST OFFERS",
   "Enter your email address": "Enter your email address",
   "Subscribe to Newsletter": "Subscribe to Newsletter",
-  "We have clothes that suits your style and which you're proud to wear. From women to men.": "We have clothes that suits your style and which you're proud to wear. From women to men.",
+  "We have clothes that suits your style and which you're proud to wear From women to men": "We have clothes that suits your style and which you're proud to wear. From women to men.",
   "COMPANY": "COMPANY",
   "About": "About",
   "Features": "Features",
@@ -39,5 +39,14 @@
   "All Rights Reserved": "All Rights Reserved",
   "remove to like": "remove to like",
   "add to like": "add to like",
-  "Status": "Status"
+  "Status": "Status",
+  "In cart": "In cart",
+  "Delete selected": "Delete selected",
+  "Clear cart": "Clear cart",
+  "Cart is empty": "Cart is empty",
+  "Out of Stock": "Out of Stock",
+  "Total price": "Total price",
+  "Order processing": "Order processing",
+  "Search": "Search",
+  "Liked products is empty": "Liked products is empty"
 }
