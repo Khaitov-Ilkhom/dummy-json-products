@@ -15,7 +15,7 @@
   "STAY UPTO DATE ABOUT OUR LATEST OFFERS": "БУДЬТЕ В КУРСЕ НАШИХ ПОСЛЕДНИХ ПРЕДЛОЖЕНИЙ",
   "Enter your email address": "Введите ваш email",
   "Subscribe to Newsletter": "Подписаться на рассылку",
-  "We have clothes that suits your style and which you're proud to wear. From women to men.": "У нас есть одежда, подходящая вашему стилю, которой вы будете гордиться. От женщин до мужчин.",
+  "We have clothes that suits your style and which you're proud to wear From women to men": "У нас есть одежда, подходящая вашему стилю, которой вы будете гордиться. От женщин до мужчин.",
   "COMPANY": "КОМПАНИЯ",
   "About": "О нас",
   "Features": "Функции",
@@ -39,5 +39,14 @@
   "All Rights Reserved": "Все права защищены",
   "remove to like": "удалить из избранного",
   "add to like": "добавить в избранное",
-  "Status": "Статус"
+  "Status": "Статус",
+  "In cart": "В корзине",
+  "Delete selected": "Удалить выбранные",
+  "Clear cart": "Очистить корзину",
+  "Cart is empty": "Корзина пуста",
+  "Out of Stock": "Нет в наличии",
+  "Total price": "Общая сумма",
+  "Order processing": "Обработка заказа",
+  "Search": "Поиск",
+  "Liked products is empty": "Liked products is empty"
 }
