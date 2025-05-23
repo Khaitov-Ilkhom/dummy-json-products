@@ -12,8 +12,10 @@ import {Input} from "@/components/ui/input.tsx";
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle} from "@/components/ui/sheet.tsx";
 import {useLikeStore} from "@/store/likeStore.ts";
 import {useCartStore} from "@/store/cartStore.ts";
+import {useTranslation} from "react-i18next";
 
 const Navbar = () => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const {isDarkMode} = useThemeStore();
   const [open, setOpen] = useState(false);
@@ -36,7 +38,7 @@ const Navbar = () => {
           </div>
 
           <div className="max-w-[450px] w-full">
-            <Input type="text" placeholder="Search"/>
+            <Input type="text" placeholder={t("Search")}/>
           </div>
           <div className="flex justify-between items-center gap-2">
             <div className="hidden md:flex">
