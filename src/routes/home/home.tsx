@@ -48,7 +48,7 @@ const Home = () => {
             </div>
 
             <div className="w-full flex justify-center items-center mb-5">
-              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)} className="px-10 py-2 font-semibold">{t("Show more 10")}</Button>
+              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)} className="px-10 py-2 font-semibold cursor-pointer">{t("Show more 10")}</Button>
             </div>
           </div>
         </div>
