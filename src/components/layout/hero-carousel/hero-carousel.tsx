@@ -49,10 +49,10 @@ const HeroCarousel = () => {
           </CarouselContent>
           <div className="absolute inset-y-0 left-0 right-0 z-2 mx-14 pointer-events-none">
             <div className="pointer-events-auto">
-              <CarouselPrevious />
+              <CarouselPrevious className="cursor-pointer"/>
             </div>
             <div className="pointer-events-auto">
-              <CarouselNext />
+              <CarouselNext className="cursor-pointer"/>
             </div>
           </div>
         </Carousel>
