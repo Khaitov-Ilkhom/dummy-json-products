@@ -29,7 +29,7 @@ const Footer = () => {
                     className="pl-10 bg-white text-black min-w-[300px] h-12 rounded-full"
                 />
               </div>
-              <Button className="h-12 px-6 rounded-full bg-white text-black hover:bg-gray-200">
+              <Button className="h-12 px-6 rounded-full bg-white text-black hover:bg-gray-200 cursor-pointer">
                 {t("Subscribe to Newsletter")}
               </Button>
             </div>
