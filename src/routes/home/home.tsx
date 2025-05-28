@@ -9,18 +9,20 @@ import Breadcrumbs from "@/components/shared/breadcrumb/breadcrumb.tsx";
 import HeroCarousel from "@/components/layout/hero-carousel/hero-carousel.tsx";
 import Footer from "@/components/layout/footer/footer.tsx";
 import {useTranslation} from "react-i18next";
+import {useThemeStore} from "@/store/themeStore.ts";
 
 const Home = () => {
   const {t} = useTranslation();
+  const {isDarkMode} = useThemeStore();
   const [limit, setLimit] = useState(15);
 
   const {products, productLoading}: { products: Product[], productLoading: boolean } = useGetAllProduct()
 
   return (
-      <div className="w-full">
+      <div className={`w-full ${isDarkMode ? "bg-[#0E1014]/70 text-white" : "bg-background/95 supports-[backdrop-filter]:bg-background/60"}`}>
         <Navbar/>
 
-        <div className="max-w-[1440px] mx-auto mt-[70px]">
+        <div className="max-w-[1440px] mx-auto pt-[70px]">
           <Breadcrumbs/>
 
           <HeroCarousel/>
@@ -48,7 +50,7 @@ const Home = () => {
             </div>
 
             <div className="w-full flex justify-center items-center mb-5">
-              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)} className="px-10 py-2 font-semibold cursor-pointer">{t("Show more 10")}</Button>
+              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)} className="px-10 py-2 font-semibold cursor-pointer active:scale-95">{t("Show more 10")}</Button>
             </div>
           </div>
         </div>
