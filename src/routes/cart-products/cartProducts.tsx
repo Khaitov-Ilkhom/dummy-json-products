@@ -7,9 +7,11 @@ import {Product} from "@/types";
 import Breadcrumbs from "@/components/shared/breadcrumb/breadcrumb.tsx";
 import Footer from "@/components/layout/footer/footer.tsx";
 import {useTranslation} from "react-i18next";
+import {useThemeStore} from "@/store/themeStore.ts";
 
 const CartProducts = () => {
   const {t} = useTranslation();
+  const {isDarkMode} = useThemeStore();
   const {incrementQuantity, decrementQuantity, removeFromCart, clearCart} = useCartStore();
   const items = useCartStore((state) => state.carts);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
@@ -29,10 +31,10 @@ const CartProducts = () => {
   };
 
   return (
-      <div className="w-full">
+      <div className={`w-full ${isDarkMode ? "bg-[#0E1014]/70 text-white" : "bg-background/95 supports-[backdrop-filter]:bg-background/60"}`}>
         <Navbar/>
 
-        <div className="max-w-[1440px] mx-auto w-full mt-[70px]">
+        <div className="max-w-[1440px] mx-auto w-full pt-[70px]">
           <Breadcrumbs/>
 
           <div className="px-4 md:px-10 mt-2 mb-8">
@@ -40,10 +42,10 @@ const CartProducts = () => {
               <h2 className="text-3xl font-semibold">{t("In cart")} ({items.length})</h2>
               {items.length > 0 && (
                   <div className="flex gap-2">
-                    <Button variant="outline" onClick={removeSelected} disabled={selectedIds.length === 0}>
+                    <Button variant="outline" className={`active:scale-95 cursor-pointer ${isDarkMode ? "text-white bg-black border-black hover:bg-black/70 hover:text-white duration-500" : "bg-gray-300"}`} onClick={removeSelected} disabled={selectedIds.length === 0}>
                       {t("Delete selected")}
                     </Button>
-                    <Button variant="destructive" className="hover:bg-red-500/90" onClick={clearCart}>{t("Clear cart")}</Button>
+                    <Button variant="destructive" className="hover:bg-red-500/90 active:scale-95 cursor-pointer" onClick={clearCart}>{t("Clear cart")}</Button>
                   </div>
               )}
             </div>
@@ -55,8 +57,8 @@ const CartProducts = () => {
                     const outOfStock = item.stock === 0;
 
                     return (
-                        <div key={item.id} className="border rounded-xl p-4 flex flex-col md:flex-row gap-4 bg-white shadow-sm hover:shadow-md transition">
-                          <input type="checkbox" checked={isSelected(item.id)} onChange={() => toggleSelect(item.id)} className="self-start md:self-center hidden md:block"/>
+                        <div key={item.id} className={`border rounded-xl p-4 flex flex-col md:flex-row gap-4 shadow-sm hover:shadow-md transition ${isDarkMode ? "bg-[#0E1014]/60 border-[#0E1014]/60" : "bg-white"}`}>
+                          <input type="checkbox" checked={isSelected(item.id)} onChange={() => toggleSelect(item.id)} className="self-start md:self-center hidden md:block cursor-pointer"/>
 
                           <div className="flex justify-between ">
                             <img src={item.images[0]} alt={item.title} className="w-[120px] h-[120px] object-contain rounded-md bg-gray-100"/>
@@ -84,14 +86,14 @@ const CartProducts = () => {
                               </div>
 
                               <div className="flex items-center gap-3">
-                                <Button onClick={() => decrementQuantity(item)} className="w-8 h-8 p-0 border" disabled={item.quantity === undefined || item.quantity <= 1}>
+                                <Button onClick={() => decrementQuantity(item)} className="w-8 h-8 p-0 border active:scale-95 cursor-pointer" disabled={item.quantity === undefined || item.quantity <= 1}>
                                   <Minus size={16}/>
                                 </Button>
                                 <span>{item.quantity}</span>
-                                <Button onClick={() => incrementQuantity(item)} className="w-8 h-8 p-0 border" disabled={item.quantity === undefined || item.quantity >= item.stock}>
+                                <Button onClick={() => incrementQuantity(item)} className="w-8 h-8 p-0 border active:scale-95 cursor-pointer" disabled={item.quantity === undefined || item.quantity >= item.stock}>
                                   <Plus size={16}/>
                                 </Button>
-                                <Button onClick={() => removeFromCart(item.id)} className="bg-red-500 hover:bg-red-500/80 w-8 h-8" variant="ghost" size="icon">
+                                <Button onClick={() => removeFromCart(item.id)} className="bg-red-500 hover:bg-red-500/80 w-8 h-8 active:scale-95 cursor-pointer" variant="ghost" size="icon">
                                   <Trash2 className="text-white" size={18}/>
                                 </Button>
                               </div>
@@ -105,9 +107,9 @@ const CartProducts = () => {
 
             {items.length > 0 && (
                 <div
-                    className="mt-10 md:p-4 py-4 border-t flex flex-col md:flex-row justify-between md:items-center gap-2 bg-gray-50">
+                    className={`mt-10 md:p-4 py-4 flex flex-col md:flex-row justify-between md:items-center gap-2 ${isDarkMode ? "bg-[#0E1014]/60" : "bg-gray-50 border-t"}`}>
                   <h4 className="text-xl font-semibold">{t("Total price")}: {totalPrice} USD</h4>
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white active:scale-95 cursor-pointer">
                     {t("Order processing")}
                   </Button>
                 </div>
