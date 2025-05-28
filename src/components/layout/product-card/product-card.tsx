@@ -14,10 +14,12 @@ import {toast} from "sonner";
 import {useLikeStore} from "@/store/likeStore.ts";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {useThemeStore} from "@/store/themeStore.ts";
 
 const Products = ({product}: { product: Product }) => {
   const navigate = useNavigate();
   const {t} = useTranslation();
+  const {isDarkMode} = useThemeStore();
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [_, setCount] = useState(0)
@@ -46,17 +48,17 @@ const Products = ({product}: { product: Product }) => {
 
   return (
       <Card
-          className="border border-gray-300 hover:shadow-lg duration-500 py-0 overflow-hidden gap-2 relative group hover:bg-gray-100/50">
+          className={`border border-gray-300 hover:shadow-lg duration-500 py-0 overflow-hidden gap-2 relative group hover:bg-gray-100/50 ${isDarkMode ? "bg-[#0E1014]/20 text-white hover:bg-[#0E1014]/30" : ""}`}>
         <div className="absolute top-2 right-4 w-[30px] z-5">
           <button className="cursor-pointer p-2 bg-white/40 rounded-full" onClick={() => likedProduct(product)}>{
-            liked ? <Heart className="text-red-500 fill-red-500"/> : <Heart className="text-gray-500"/>}</button>
+            liked ? <Heart className="text-red-500 fill-red-500"/> : <Heart className={`text-gray-500 ${isDarkMode ? "text-white" : ""}`}/>}</button>
         </div>
         <div className="w-full flex flex-col items-center">
           <Carousel plugins={[autoplayPlugin]} setApi={setApi} className="w-full">
             <CarouselContent>
               {product.images.map((image, index) => (
                   <CarouselItem onClick={() => navigate(`/product-detail/${product.id}`)} key={index}
-                                className="bg-gray-200 cursor-pointer">
+                                className={`bg-gray-200 cursor-pointer ${isDarkMode ? "bg-[#0E1014]/30" : ""}`}>
                     {
                       image ? <img
                           className="w-full h-[200px] md:h-[250px] object-contain group-hover:scale-105 transition duration-600 px-4"
@@ -71,7 +73,7 @@ const Products = ({product}: { product: Product }) => {
             {Array.from({length: product.images.length}).map((_, index) => (
                 <button
                     key={index}
-                    className={cn("h-2 w-2 rounded-full transition-colors", current === index ? "bg-primary" : "bg-muted")}
+                    className={cn("h-2 w-2 rounded-full transition-colors cursor-pointer", current === index ? "bg-primary" : "bg-muted")}
                     onClick={() => api?.scrollTo(index)}
                     aria-label={`Go to slide ${index + 1}`}
                 />
@@ -80,7 +82,7 @@ const Products = ({product}: { product: Product }) => {
         </div>
 
         <CardContent className="md:pb-4 pb-2 md:px-4 px-2">
-          <CardTitle className="line-clamp-1 font-semibold text-lg text-slate-700">{product.title}</CardTitle>
+          <CardTitle className={`line-clamp-1 font-semibold text-lg text-slate-700 ${isDarkMode ? "text-white" : ""}`}>{product.title}</CardTitle>
           <p className="capitalize md:text-md text-sm">#{product.category}</p>
           <div className="text-md flex flex-col md:flex-row justify-between">
             <p className="flex gap-2 items-end">
