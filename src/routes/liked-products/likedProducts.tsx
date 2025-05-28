@@ -4,16 +4,18 @@ import Products from "@/components/layout/product-card/product-card.tsx";
 import Breadcrumbs from "@/components/shared/breadcrumb/breadcrumb.tsx";
 import Footer from "@/components/layout/footer/footer.tsx";
 import {useTranslation} from "react-i18next";
+import {useThemeStore} from "@/store/themeStore.ts";
 
 const LikedProducts = () => {
   const {t} = useTranslation();
+  const {isDarkMode} = useThemeStore();
   const likedItems = useLikeStore((state) => state.likedItems);
 
   return (
-      <div className="w-full">
+      <div className={`w-full ${isDarkMode ? "bg-[#0E1014]/70 text-white" : "bg-background/95 supports-[backdrop-filter]:bg-background/60"}`}>
         <Navbar/>
 
-        <div className="max-w-[1440px] mx-auto w-full mt-[70px]">
+        <div className="max-w-[1440px] mx-auto w-full pt-[70px]">
           <Breadcrumbs/>
 
           {
