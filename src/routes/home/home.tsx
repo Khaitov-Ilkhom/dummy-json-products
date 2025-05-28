@@ -32,7 +32,8 @@ const Home = () => {
               <h2 className="text-4xl font-semibold">{t("All Products")}</h2>
             </div>
 
-            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 p-4 md:px-10">
+            <div
+                className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 p-4 md:px-10">
               {
                 productLoading ? Array.from({length: 10}).map((_, i) => (
                     <div key={i} className="flex flex-col space-y-3">
@@ -50,7 +51,8 @@ const Home = () => {
             </div>
 
             <div className="w-full flex justify-center items-center mb-5">
-              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)} className="px-10 py-2 font-semibold cursor-pointer active:scale-95">{t("Show more 10")}</Button>
+              <Button disabled={products.length <= limit} onClick={() => setLimit(limit + 10)}
+                      className="px-10 py-2 font-semibold cursor-pointer active:scale-95">{t("Show more 10")}</Button>
             </div>
           </div>
         </div>
