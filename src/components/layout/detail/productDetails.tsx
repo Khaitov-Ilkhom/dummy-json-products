@@ -10,9 +10,11 @@ import RenderRating from "@/components/shared/render-rating/renderRating.tsx";
 import {useCartStore} from "@/store/cartStore.ts";
 import {Button} from "@/components/ui/button.tsx";
 import {useTranslation} from "react-i18next";
+import {useThemeStore} from "@/store/themeStore.ts";
 
 const ProductDetails = ({product}: { product: Product }) => {
   const {t} = useTranslation();
+  const {isDarkMode} = useThemeStore();
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [_, setCount] = useState(0)
@@ -21,7 +23,7 @@ const ProductDetails = ({product}: { product: Product }) => {
   const {addToCart} = useCartStore();
   const items = useCartStore((state) => state.carts);
 
-  useEffect(() => { 
+  useEffect(() => {
 
     if (!api) return
     setCount(api.scrollSnapList().length)
@@ -30,7 +32,7 @@ const ProductDetails = ({product}: { product: Product }) => {
     api.on("select", () => setCurrent(api.selectedScrollSnap()))
   }, [api])
 
-  const autoplayPlugin = new (Autoplay as any)({ delay: 2500 });
+  const autoplayPlugin = new (Autoplay as any)({delay: 2500});
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -59,12 +61,12 @@ const ProductDetails = ({product}: { product: Product }) => {
     }
   };
 
-  // @ts-ignore
   return (
-      <div>
+      <div
+          className={`w-full ${isDarkMode ? "text-white" : "bg-background/95 supports-[backdrop-filter]:bg-background/60"}`}>
         {
           <div className="max-w-[1440px] w-full mx-auto p-8">
-            <div className="relative flex flex-col lg:flex-row items-start justify-center lg:space-x-10 bg-white p-8">
+            <div className="relative flex flex-col lg:flex-row items-start justify-center lg:space-x-10 p-8">
               <div className="flex-1 lg:order-1 text-center lg:text-left pt-6">
                 <div className="mb-4">
                   <h1 className="text-4xl font-bold mb-2">{product.title}</h1>
@@ -74,7 +76,7 @@ const ProductDetails = ({product}: { product: Product }) => {
 
                 <div className="flex items-center justify-center lg:justify-start mb-2">
                   <div className="-mt-1"><RenderRating rate={product?.rating}/></div>
-                  <p className="ml-2 text-sm text-gray-500">({product.id} reviews)</p>
+                  <p className={`ml-2 text-sm ${isDarkMode ? "text-white" : "text-gray-500"}`}>({product.id} reviews)</p>
                 </div>
 
                 <div>
@@ -82,19 +84,19 @@ const ProductDetails = ({product}: { product: Product }) => {
                 </div>
 
                 <div className="py-4 mb-2">
-                  <p className="text-gray-500">{product.description}</p>
+                  <p className={isDarkMode ? "text-white" : "text-gray-500"}>{product.description}</p>
                 </div>
               </div>
 
-              <div className="relative w-full lg:w-1/3 mb-6 lg:mb-0 lg:order-2">
-                <div className="w-full flex flex-col items-center">
+              <div className="w-full lg:w-1/3 mb-6 lg:mb-0 lg:order-2">
+                <div className="w-full flex flex-col items-center gap-2">
                   <Carousel plugins={[autoplayPlugin]} setApi={setApi} className="w-full">
-                    <CarouselContent>
+                    <CarouselContent className="">
                       {product?.images.map((image: string, index: number) => (
-                          <CarouselItem key={index} className="bg-gray-200">
+                          <CarouselItem key={index} className={isDarkMode ? "bg-[#0E1014]/30" : "bg-gray-200"}>
                             {
                               image ? <img
-                                      className="w-full h-[200px] md:h-[350px] px-4 object-contain group-hover:scale-105 transition duration-600"
+                                      className="w-full h-[200px] md:h-[350px]"
                                       src={image} alt={product.title}/> :
                                   <Skeleton className="w-full h-[200px] md:h-[250px]"/>
                             }
@@ -135,10 +137,14 @@ const ProductDetails = ({product}: { product: Product }) => {
                       </div>
                     </div>
                     <p><span className="font-semibold">{t("Stock")}:</span> {product.stock}</p>
-                    <p><span className="font-semibold">{t("Minimum order quantity")}:</span> {product.minimumOrderQuantity}</p>
+                    <p><span
+                        className="font-semibold">{t("Minimum order quantity")}:</span> {product.minimumOrderQuantity}
+                    </p>
                     <p><span className="font-semibold">{t("Return policy")}:</span> {product.returnPolicy}</p>
-                    <p><span className="font-semibold">{t("Shipping information")}:</span> {product.shippingInformation}</p>
-                    <p><span className="font-semibold">{t("Warranty information")}:</span> {product.warrantyInformation}</p>
+                    <p><span className="font-semibold">{t("Shipping information")}:</span> {product.shippingInformation}
+                    </p>
+                    <p><span className="font-semibold">{t("Warranty information")}:</span> {product.warrantyInformation}
+                    </p>
                   </div>
 
                   <div className="w-full flex items-center justify-start my-6 select-none">
@@ -158,8 +164,10 @@ const ProductDetails = ({product}: { product: Product }) => {
                     </div>
 
                     <Button
-                        onClick={() => {handleAddToCart(product, quantity)}}
-                        className="rounded-lg text-md py-1 border">+ {t("Add to cart")}
+                        onClick={() => {
+                          handleAddToCart(product, quantity)
+                        }}
+                        className="rounded-lg text-md py-1 border active:scale-95">+ {t("Add to cart")}
                     </Button>
                   </div>
                 </div>
