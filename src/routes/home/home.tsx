@@ -10,6 +10,7 @@ import HeroCarousel from "@/components/layout/hero-carousel/hero-carousel.tsx";
 import Footer from "@/components/layout/footer/footer.tsx";
 import {useTranslation} from "react-i18next";
 import {useThemeStore} from "@/store/themeStore.ts";
+import Categories from "@/components/layout/categories/categories.tsx";
 
 const Home = () => {
   const {t} = useTranslation();
@@ -27,9 +28,11 @@ const Home = () => {
 
           <HeroCarousel/>
 
+          <Categories/>
+
           <div>
             <div className="w-full text-center">
-              <h2 className="text-4xl font-semibold">{t("All Products")}</h2>
+              <h2 className="text-2xl md:text-4xl font-semibold">{t("All Products")}</h2>
             </div>
 
             <div
