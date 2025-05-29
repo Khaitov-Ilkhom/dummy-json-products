@@ -21,7 +21,7 @@ const Breadcrumbs = () => {
         <BreadcrumbList>
           <BreadcrumbItem className="md:-mr-2 -mr-1">
             <BreadcrumbLink asChild>
-              <Link to="/">Home</Link>
+              <Link to="/" >Home</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
 
@@ -33,7 +33,7 @@ const Breadcrumbs = () => {
               const to = buildPath(index + 1)
               return (
                   <div key={index} className="flex items-center">
-                    <BreadcrumbSeparator />
+                    <BreadcrumbSeparator/>
                     <BreadcrumbItem>
                       <BreadcrumbLink asChild>
                         <Link to={to} className="capitalize">
