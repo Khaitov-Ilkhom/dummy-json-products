@@ -58,7 +58,7 @@ const Products = ({product}: { product: Product }) => {
             <CarouselContent>
               {product.images.map((image, index) => (
                   <CarouselItem onClick={() => navigate(`/product-detail/${product.id}`)} key={index}
-                                className={`bg-gray-200 cursor-pointer ${isDarkMode ? "bg-[#0E1014]/30" : ""}`}>
+                                className={`cursor-pointer ${isDarkMode ? "bg-[#0E1014]/30" : "bg-gray-200"}`}>
                     {
                       image ? <img
                           className="w-full h-[200px] md:h-[250px] object-contain group-hover:scale-105 transition duration-600 px-4"
