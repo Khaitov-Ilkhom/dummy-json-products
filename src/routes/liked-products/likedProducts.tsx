@@ -18,6 +18,10 @@ const LikedProducts = () => {
         <div className="max-w-[1440px] mx-auto w-full pt-[70px]">
           <Breadcrumbs/>
 
+          <div className="w-full text-center">
+            <h2 className="text-2xl md:text-4xl font-semibold">{t("Liked Products")}</h2>
+          </div>
+
           {
             likedItems.length > 0 ?  <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 p-4 md:px-10 mb-6">
               {

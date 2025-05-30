@@ -40,7 +40,7 @@ const CartProducts = () => {
 
           <div className="px-4 md:px-10 mt-2 mb-8">
             <div className="flex justify-between md:items-center mb-4 flex-col md:flex-row gap-2">
-              <h2 className="text-3xl font-semibold">{t("In cart")} ({items.length})</h2>
+              <h2 className="text-2xl md:text-4xl font-semibold">{t("In cart")} ({items.length})</h2>
               {items.length > 0 && (
                   <div className="flex gap-2">
                     <Button variant="outline"
