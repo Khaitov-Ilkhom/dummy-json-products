@@ -37,7 +37,6 @@ export const useGetAllCategories = () => {
 }
 
 export const useGetByCategory = (category: string) => {
-  console.log(category)
   const {data, isPending: categoriesLoading} = useQuery({
     queryKey: ["by-categories", category],
     queryFn: () => getByCategories(category),
